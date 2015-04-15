@@ -42,6 +42,10 @@ public class Message {
         //System.out.println(dateFormat.format(date)); //2014/08/06 15:59:48
     }
 
+    public String toString() {
+        return this.getSender().getName() + ": " + this.getSubject();
+    }
+
     public static void main(String[] args) {
         Message m = new Message(new Person(), new ArrayList<Person>(), "Blank",
                     "new Message()");

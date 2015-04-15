@@ -13,4 +13,12 @@ public class Person {
         this.email = "JSmith@fakeemail.com";
     }
 
+    public String getName() {
+        return this.name;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
 }
