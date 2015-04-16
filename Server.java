@@ -1,6 +1,10 @@
 import java.util.ArrayList;
 import java.util.Random;
-
+/**
+ * Represents a a mailbox object.
+ * @author Jesse Fowler
+ * @version 1.0
+ */
 public class Server {
 
     private Mailbox trash;
@@ -8,6 +12,8 @@ public class Server {
     private Mailbox flagged;
     private ArrayList<Mailbox> boxes;
 
+    /** Creates three mailboxes and an ArrayList of the boxes when called
+      */
     public Server() {
         Person p1 = new Person();
         Person p2 = new Person("Bob Johnson", "BJohnson@email.com");
@@ -48,37 +54,33 @@ public class Server {
         this.boxes.add(this.inbox);
         this.boxes.add(this.trash);
         this.boxes.add(this.flagged);
-
-
     }
 
+    /** Returns the Inbox of the Server
+      * @return The Inbox of the Server
+      */
     public Mailbox getInbox() {
         return this.inbox;
     }
 
+    /** Returns the trash box of the Server
+      * @return The trash box of the Server
+      */
     public Mailbox getTrash() {
         return this.trash;
     }
 
+    /** Returns the flagged box of the Server
+      * @return The flagged box of the Server
+      */
     public Mailbox getFlagged() {
         return this.flagged;
     }
 
+    /** Returns the ArrayList of all the mailboxes
+      * @return The ArrayList of all the mailboxes
+      */
     public ArrayList<Mailbox> getBoxes() {
         return this.boxes;
     }
-
-    public static void main(String[] args) {
-        Server s = new Server();
-        for (Mailbox mb: s.getBoxes()) {
-
-            System.out.println(mb.getName());
-            for (Message m : mb.getMessages()) {
-                System.out.println(m.getSubject() + ": " + m.getMessage());
-            }
-            System.out.println();
-
-        }
-    }
-
 }

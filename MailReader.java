@@ -9,7 +9,11 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
 import javafx.geometry.Insets;
-
+/**
+ * MailReader Application.
+ * @author Jesse Fowler
+ * @version 1.0
+ */
 public class MailReader extends Application {
 
     private ObservableList<Message> inboxList;
@@ -26,6 +30,10 @@ public class MailReader extends Application {
     private Message currentMessage;
     private int currentIdx = 0;
 
+    /** Creates the Mailreader and handels moving Messages to and from Mailboxes
+      * on the Server
+      * @param stage The Stage to be drawn on
+      */
     @Override
     public void start(Stage stage) {
 
@@ -178,7 +186,10 @@ public class MailReader extends Application {
 
     }
 
-    public void updateList() {
+    /** Updates the ListView for each Mailbox and updates the current displayed
+      * message.
+      */
+    private void updateList() {
 
         this.inboxList = FXCollections.observableArrayList();
         for (Message m: this.inbox.getMessages()) {
@@ -198,6 +209,8 @@ public class MailReader extends Application {
         this.updateMessage();
     }
 
+    /** Initializes the Mailreaders mailboxes from the server
+      */
     private void initBoxes() {
         this.inbox = new Mailbox("Inbox");
         this.inbox.add(this.server.getInbox().getMessages());
@@ -211,6 +224,8 @@ public class MailReader extends Application {
         this.currentBox = this.inbox;
     }
 
+    /** Updates the currently displayed message
+      */
     private void updateMessage() {
         if (this.currentBox.getMessages().size() > 0) {
             this.currentMessage = this.currentBox.getMessage(this.currentIdx);
