@@ -39,6 +39,7 @@ public class MailReader extends Application {
 
         this.currentBox = new Mailbox();
         this.initBoxes();
+        this.message = FXCollections.observableArrayList();
         this.updateList();
 
         this.currentBoxList = FXCollections.observableArrayList();
@@ -46,9 +47,6 @@ public class MailReader extends Application {
 
         this.boxName = FXCollections.observableArrayList();
         this.boxName.setAll("Inbox");
-
-        this.message = FXCollections.observableArrayList();
-        this.updateMessage();
 
         ListView<Message> currentMessages =
                                           new ListView<Message>(currentBoxList);
@@ -93,14 +91,7 @@ public class MailReader extends Application {
         Button btnRefresh = new Button("Refresh");
         btnRefresh.setOnAction(e -> {
 
-                this.inbox.removeAll();
-                this.inbox.add(this.server.getInbox().getMessages());
-
-                this.trash.removeAll();
-                this.trash.add(this.server.getTrash().getMessages());
-
-                this.flagged.removeAll();
-                this.flagged.add(this.server.getFlagged().getMessages());
+                this.initBoxes();
 
                 this.updateList();
 
@@ -216,10 +207,10 @@ public class MailReader extends Application {
         this.inbox.add(this.server.getInbox().getMessages());
 
         this.flagged = new Mailbox("Flagged");
-        this.flagged.add(this.server.getInbox().getMessages());
+        this.flagged.add(this.server.getFlagged().getMessages());
 
         this.trash = new Mailbox("Trash");
-        this.trash.add(this.server.getInbox().getMessages());
+        this.trash.add(this.server.getTrash().getMessages());
 
         this.currentBox = this.inbox;
     }
@@ -227,7 +218,8 @@ public class MailReader extends Application {
     /** Updates the currently displayed message
       */
     private void updateMessage() {
-        if (this.currentBox.getMessages().size() > 0) {
+        if (this.currentBox.getMessages().size() > 0
+            && this.message != null) {
             this.currentMessage = this.currentBox.getMessage(this.currentIdx);
             this.message.setAll(this.currentMessage.toString()
                                 + "\n" + this.currentMessage.getDate()
